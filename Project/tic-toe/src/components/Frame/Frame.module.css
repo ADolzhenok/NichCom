@@ -1,0 +1,28 @@
+.text {
+  position: relative;
+  text-align: justify;
+  padding: 30px;
+  word-spacing: 5px;
+  background-color: #e8dcb8;
+  opacity: 0.8;
+  border-radius: 10px/50%;
+  border: 2px solid;
+  border-color: red blue red blue;
+  box-shadow: 12px 12px 2px 1px rgb(196, 127, 95);
+}
+
+.text:hover {
+  opacity: 1;
+}
+
+@media (min-width: 1202px) {
+  .text {
+    top: 10%;
+  }
+}
+
+@media (max-width: 1201px) and (min-width: 944px) and (min-height: 598px) {
+  .text {
+    top: 5%;
+  }
+}

@@ -1,0 +1,35 @@
+.board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 40%;
+  height: 300px;
+}
+
+.left {
+  border-left-color: transparent !important;
+}
+
+.top {
+  border-top-color: transparent !important;
+}
+
+.right {
+  border-right-color: transparent !important;
+}
+
+.bottom {
+  border-bottom-color: transparent !important;
+}
+
+.btn {
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: rgb(231, 231, 231);
+}
+.btn:disabled {
+  color: black;
+}
+

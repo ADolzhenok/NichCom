@@ -1,9 +1,12 @@
+import time
+
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QPushButton, QLineEdit
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QPushButton, QLineEdit, QCheckBox
 import os
 import sys
 import pyautogui as pg
 import winshell
+from voice_assistant.main import startVA
 
 # Global variables
 buttonStyle = """
@@ -361,7 +364,7 @@ class OpenAddingWindow(QWidget):
         if actionType == 'path':
             buttonCheck = QPushButton('Check the Path', self)
         else:
-            buttonCheck = QPushButton('Check the Shell Command(s)', self)
+            buttonCheck = QPushButton('Check', self)
         buttonCheck.move(100, 280)
         buttonCheck.setFixedSize(200, 40)
         buttonCheck.setStyleSheet("*{\n text-transform: uppercase;\n" + style)
@@ -407,6 +410,79 @@ class OpenAddingWindow(QWidget):
         self.backToSysWindow.setStyleSheet('background-color: #FAFAFA;')
         self.backToSysWindow.show()
 
+class OpenVaWindow(QWidget):
+
+    lang = 'english'
+    def __init__(self):
+        super().__init__()
+        self.setFixedSize(QSize(600, 400))
+        self.setWindowTitle("NichCom")
+
+        def chooseLang():
+            self.radio = QCheckBox("Russian", self)
+            self.radio.toggled.connect(self.changeLang)
+            self.radio.move(260, 70)
+
+        def buttons():
+            style = """
+                            padding: 10px 20px;
+                            font-size: 15px;
+                            font-weight: 600;
+                            width: 300px;
+                            text-transform: uppercase;
+                            border-radius: 100px;
+                            border: 0.5px solid #E2E2E2; }"""
+            styleStart = """
+                        *{
+                            background: #9DFFBD;\n
+                        """ + style + """
+                        \n 
+                        *:hover {
+                            background: #66FF99;
+                            border: 2px solid 'grey';
+                        }
+                        """
+            styleStop = """
+                        *{
+                            background: #F75D59;\n
+                        """ + style + """
+                        \n 
+                        *:hover {
+                            background: #FF4500;
+                            border: 2px solid 'grey';
+                        }
+                        """
+            cursor = Qt.CursorShape.PointingHandCursor
+
+
+            #Button start using
+            self.buttonStart = QPushButton('Start', self)
+            self.buttonStart.move(200, 120)
+            self.buttonStart.setFixedSize(200, 200)
+            self.buttonStart.setStyleSheet(styleStart)
+            self.buttonStart.setCursor(cursor)
+            self.buttonStart.clicked.connect(self.callVA)
+
+            # #Button stop using
+            # buttonStop = QPushButton('Stop', self)
+            # buttonStop.move(320, 100)
+            # buttonStop.setFixedSize(200, 200)
+            # buttonStop.setStyleSheet(styleStop)
+            # buttonStop.setCursor(cursor)
+
+        chooseLang()
+        buttons()
+    def callVA(self):
+        startVA(lang)
+
+    def changeLang(self):
+        global lang
+        if self.sender().isChecked():
+            lang = 'russian'
+        else:
+            lang = 'english'
+        print(lang)
+
 
 # Main Window (1)
 class Window(QMainWindow):
@@ -446,6 +522,7 @@ class Window(QMainWindow):
             buttonGame.setStyleSheet(style)
             buttonGame.move(210, 240)
             buttonGame.setCursor(cursor)
+            buttonGame.clicked.connect(self.gameBtn)
 
             # Voice Assistant
             buttonVA = QPushButton("Voice assistant", self)
@@ -453,6 +530,7 @@ class Window(QMainWindow):
             buttonVA.setStyleSheet(style)
             buttonVA.move(210, 300)
             buttonVA.setCursor(cursor)
+            buttonVA.clicked.connect(self.vaBtn)
 
             # App's Language
             # buttonLang = QPushButton("Rus", self)
@@ -494,6 +572,19 @@ class Window(QMainWindow):
         self.sysWindow = OpenSysWindow()
         self.sysWindow.setStyleSheet('background-color: #FAFAFA;')
         self.sysWindow.show()
+    def gameBtn(self):
+        os.system("start cmd")
+        time.sleep(2)
+        pg.write('cd tic-toe')
+        pg.press('enter')
+        time.sleep(0.5)
+        pg.write('npm start')
+        pg.press('enter')
+
+    def vaBtn(self):
+        self.vaWindow = OpenVaWindow()
+        self.vaWindow.setStyleSheet('background-color: #FAFAFA;')
+        self.vaWindow.show()
 
     def closeEvent(self, event):
         QApplication.closeAllWindows()
@@ -502,7 +593,6 @@ class Window(QMainWindow):
 
 app = QApplication(sys.argv)
 window = Window()
-# window = OpenSysWindow()
 window.setStyleSheet('background-color: #FAFAFA;')
 window.show()
 sys.exit(app.exec())

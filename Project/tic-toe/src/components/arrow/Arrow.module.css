@@ -1,0 +1,35 @@
+.arrow {
+    position: absolute;
+    height: 80px;
+    width: 100px;
+    border: 2px solid;
+    border-radius: 0 0 0 100%;
+    border-color: transparent transparent transparent black;
+}
+
+.arrowLines {
+    position: absolute;
+    top: 70px;
+    left: 90px;
+}
+
+.arrowLines:before,
+.arrowLines:after {
+    position: absolute;
+    height: 15px;
+    border: 1px solid black;
+}
+
+.arrowLines:before {
+    content: "";
+    transform: rotate(50deg);
+    left: 3px;
+    top: 7px;
+}
+
+.arrowLines:after {
+    content: "";
+    transform: rotate(130deg);
+    left: 3px;
+    top: -3px;
+}

@@ -1,0 +1,10 @@
+.footer {
+  margin-top: auto !important;
+  height: 60px;
+  background-color: rgba(172, 175, 14, 0.514);
+  text-align: center;
+  font-size: 1em;
+  vertical-align: middle;
+  line-height: 60px;
+  font-size: large;
+}

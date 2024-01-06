@@ -1,0 +1,79 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Lucida Handwriting, cursive;
+  overflow-x: hidden;
+}
+
+/*
+  Introduce.jsx
+*/
+
+#main {
+  flex-direction: column !important;
+  display: flex !important;
+  /* border: 1px solid red; */
+  margin: 0;
+  /* box-sizing: border-box; */
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  font-size: 23px;
+}
+
+/*
+  Selections.jsx
+*/
+
+.single {
+  margin: 10px;
+  display: none;
+}
+
+.multi {
+  margin: 10px;
+  display: none;
+}
+
+.info {
+  border-top: 2px solid black;
+  width: 90%;
+  position: absolute;
+  padding: 10px;
+  bottom: 10px;
+}
+
+@media (max-width: 1500px) {
+  .info {
+    width: 73%;
+  }
+}
+
+/*
+  Game.jsx
+*/
+
+h1,
+h3 {
+  margin-top: 0;
+}
+
+.players {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  height: 10%;
+}
+
+/* .gameBtn {
+  top: -10px;
+} */
+
+button:disabled {
+  pointer-events: none;
+}
